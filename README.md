@@ -1,7 +1,7 @@
 # pysc2-ai
 inspired by skjb work on pysc2-tutorial
 
-![](pysc2-lan-ezgif-crop.gif)
+![](pysc2-lan-step1.gif)
 
 
 ### Setup
