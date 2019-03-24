@@ -5,7 +5,6 @@ from pysc2.lib import features
 import time
 
 
-
 # Functions
 _BUILD_SUPPLYDEPOT = actions.FUNCTIONS.Build_SupplyDepot_screen.id
 _NOOP = actions.FUNCTIONS.no_op.id
@@ -49,7 +48,7 @@ class SimpleAgent(base_agent.BaseAgent):
 
         if not self.supply_depot_built:
             if not self.scv_selected:
-                unit_type = obs.observation["feature_minimap"][_UNIT_TYPE]
+                unit_type = obs.observation["feature_screen"][_UNIT_TYPE]
                 unit_y, unit_x = (unit_type == _TERRAN_SCV).nonzero()
 
                 target = [unit_x[0], unit_y[0]]
@@ -59,11 +58,11 @@ class SimpleAgent(base_agent.BaseAgent):
                 return actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, target])
 
             elif _BUILD_SUPPLYDEPOT in obs.observation["available_actions"]:
-                unit_type = obs.observation["feature_minimap"][_UNIT_TYPE]
+                unit_type = obs.observation["feature_screen"][_UNIT_TYPE]
                 unit_y, unit_x = (unit_type == _TERRAN_COMMANDCENTER).nonzero()
 
-                target = self.transformLocation(int(unit_x.mean()), 0, int(unit_y.mean()), 20)
-
+                #target = self.transformLocation(int(unit_x.mean()), 0, int(unit_y.mean()), 20)
+                target = [unit_x[0], unit_y[0]]
                 self.supply_depot_built = True
 
                 return actions.FunctionCall(_BUILD_SUPPLYDEPOT, [_NOT_QUEUED, target])
