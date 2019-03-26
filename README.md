@@ -1,5 +1,5 @@
 # pysc2-ai
-inspired by skjb work on pysc2-tutorial
+Build your own AI Agent and compete with current DeepMind AIs. Inspired by skjb work on pysc2 older API.
 
 ![](pysc2-lan-step1.gif)
 
@@ -34,9 +34,6 @@ I0324 06:19:08.478753  4512 sc2_env.py:462] Starting episode: 1
 
 ```
 
-You can find your accountid and serverid as directory names under ```~/Library/Application Support/Blizzard/StarCraft II/Accounts```.
-
-Now you can open the replays using the Starcraft UI: they can be found in Replays.
 
 
 #### Also see:
