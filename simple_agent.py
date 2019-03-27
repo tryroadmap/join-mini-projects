@@ -39,8 +39,10 @@ class SimpleAgent(base_agent.BaseAgent):
 
         self.attack_coordinates = None
         self.supply_depot_built = None
+        self.barracks_built = None
         self.scv_selected = None
         self.base_top_left = None
+        self.commandcenter_selected = None
 
 
     def unit_type_is_selected(self, obs, unit_type):
@@ -95,19 +97,33 @@ class SimpleAgent(base_agent.BaseAgent):
                             x = random.randint(0, 83)
                             y = random.randint(0, 83)
 
-                        logging.warning("unit type selected scv buidling supply depot" )
-                        self.scv_selected = True #flag
-                        self.supply_depot_built = True #flag
-                        return(actions.FUNCTIONS.Build_SupplyDepot_screen("now", (x , y)))
+                            logging.warning("unit type selected scv buidling supply depot" )
+                            #self.supply_depot_built = True #flag
+                            #self.scv_selected = True #flag
+                            return(actions.FUNCTIONS.Build_SupplyDepot_screen("now", (x , y)))
+
+
+        if not self.commandcenter_selected:
+            if self.can_do(obs, actions.FUNCTIONS.Train_SCV_quick.id):
+                return(actions.FUNCTIONS.Train_SCV_quick("now"))
 
 
 
-                # cc_y, cc_x = (unit_type == _TERRAN_COMMANDCENTER).nonzero()
-                # x = round(cc_x.mean())
-                # y = round(cc_y.mean())
+        if not self.barracks_built: #TODO add condition count  > 3
+            if not self.scv_selected:
+                unit_type_scv = self.get_units_by_type(obs, units.Terran.SCV)
+                if len(unit_type_scv) > 0:
+                    logging.warning("barracks point 1" )
+                    if self.unit_type_is_selected(obs, units.Terran.SCV):
+                        if (actions.FUNCTIONS.Build_Barracks_screen.id in
+                        obs.observation.available_actions):
+                            logging.warning("barracks point 2" )
+                            x = random.randint(0, 83)
+                            y = random.randint(0, 83)
+                            return(actions.FUNCTIONS.Build_Barracks_screen("now", (x , y)))
 
-                # self.scv_selected = True
-                #return(unit_type)
+
+
 
 
 
